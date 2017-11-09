@@ -10,58 +10,69 @@ class Main extends React.Component {       // Components(here TodoApp) are like 
     constructor(props) {
         super(props);
         this.state = { //These are state variables
-
+              data : this.props.data
         };
-        //this.fetchDataFromServer = this.fetchDataFromServer.bind(this);
+      //  this.fetchDataFromServer = this.fetchDataFromServer.bind(this);
+      //  this.jstreeFormat = this.jstreeFormat.bind(this);
       }
 
-      sendData(){
-
-        axios({
-            method:'post',
-            url:'/emp/:id',
-            responseType:'stream'
-          })
-            .then(function(response) {
-            console.log(response)
-          });
-      }
 
       fetchDataFromServer(){
-        axios({
-            method:'get',
-            url:'/',
-            responseType:'stream'
-          })
-            .then(function(response) {
-            console.log(response)
-          });
+        // axios({
+        //     method:'get',
+        //     url:'/',
+        //     responseType:'stream'
+        //   })
+        //     .then(function(response) {
+        //     console.log(response)
+        //   });
+
+      //   $.ajax({
+      //     url: "/emp/:id",
+      //     type: "GET",
+      //     dataType: "json",
+      //     success: function(data){ //Once response is successful
+      //       console.log(data,"here it is")
+      //       },
+      //     error: function(httpRequest, status, error){
+      //         console.log(error);
+      //     }
+      // });
       }
 
-     componentDidMount() {                       // componentDidMount is executed after first render only on the client side.
+        componentDidMount(){
 
-       axios({
-           method:'get',
-           url:'/',
-           responseType:'stream'
-         })
-           .then(function(response) {
-           console.log(response,"response")
-         });
-    }
+          $(function() {
+            $('#jstree').jstree();
+
+            $('#jstree').on("changed.jstree", function (e, data) {
+              console.log(data.selected);
+            });
+
+          });
+
+
+        }
 
 
     render() {
 
-        return (
+      var roots =  $.parseJSON(this.state.data);
+      return (
           <div>
-
+          <div id="jstree">
+          <ul>
+              {roots.map((root, i) => {
+                    return (<li key={i}>{root["name"]}</li>)
+                })}
+          </ul>
           </div>
+      </div>
         );
  }
 
 }
 
- //var data = document.body.getAttribute("data-name");
-
-ReactDom.render(<Main/>, document.getElementById("container"));
+console.log(document.body.getAttribute("data-user"),"sksdks")
+var data = document.body.getAttribute("data-user");
+ReactDom.render(<Main data={data}/>, document.getElementById("container"));

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json({limit: '5mb'}));           // Limit the HTTP requet  size and upload size.
 
 app.set('views', 'templates', 'public');                      //Set the folder-name from where you serve the html page.
-app.use(express.static('./public'));                //setting the folder name (public) where all the static files like css, js, images etc are made available
+app.use(express.static('public'))              //setting the folder name (public) where all the static files like css, js, images etc are made available
 
 
 app.set('view engine','html');                      // 'html' as a view engine in express.
@@ -39,15 +39,6 @@ http.createServer(app).listen(portNumber, function(){    //Creating the server w
 
   	database: 'varsito'
   });
-  //sudo apt-get update && sudo apt-get dist-upgrade
-
-  // var config = {
-  //      user: 'sa',
-  //      password: 'mypassword',
-  //      server: 'localhost',
-  //      database: 'SchoolDB'
-  //  };
-
 
   routes.retrival(app, pool);
 
