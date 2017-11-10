@@ -11,25 +11,8 @@
   <div id="jstree">
     <!-- in this example the tree is populated from inline HTML -->
     <ul>
-      <li>Root node 1
-        <ul>
-          <li id="child_node_1">Child node 1</li>
-          <li>Child node 2</li>
-          <li>Child node 2</li>
-          <li>Child node 2</li>
-        </ul>
-      </li>
-      <li id="">Root node 2
-        <ul>
-          <li>Child node 2
-              <ul>
-                <li>akhila</li>
-              </ul>
-          </li>
-          <li>Child node 2</li>
-          <li>Child node 2</li>
-        </ul>
-      </li>
+        <li>Node 1</li>
+        <li class="jstree-closed">Node 2</li>
     </ul>
   </div>
 
@@ -41,14 +24,16 @@
   <!-- 5 include the minified jstree source -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
   <script>
-  $(function () {
-    $('#jstree').jstree();
-
-    $('#jstree').on("changed.jstree", function (e, data) {
-      console.log(data.selected);
-    });
-
-  });
+  $('#jstree').jstree({
+  'core' : {
+    'data' : {
+      'url' : 'jstree.html',
+      'data' : function (node) {
+        return { 'id' : node.id };
+      }
+    }
+  }
+});
   </script>
 </body>
 </html>
