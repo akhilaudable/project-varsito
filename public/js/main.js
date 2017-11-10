@@ -56,9 +56,9 @@ class Main extends React.Component {       // Components(here TodoApp) are like 
                 type: "GET",
                 success: function(data){ //Once response is successful
                 console.log(data,"data");
-
+                console.log(that.state.children,"this.state.children;")
                 that.setState({
-                  
+                  root: that.state.children,
                   children : data.result
                 })
 
@@ -76,16 +76,16 @@ class Main extends React.Component {       // Components(here TodoApp) are like 
 
 
     render() {
-
-      var roots =  this.state.root;
-      var children = this.state.children;
+      // 
+      // var roots =  this.state.root;
+      // var children = this.state.children;
       return (
           <div>
           <div id="jstree">
           <ul>
-              {roots.map((root, i) => {
+              {this.state.root.map((root, i) => {
                     return (<li key={i} id={root["id"]}>{root["name"]}
-                      <ul>    {children.map((child, j) => {
+                      <ul>    {this.state.children.map((child, j) => {
                             return (<li key={j} id={child["id"]}>{child["name"]}</li>)
                           })} </ul>
                     </li>)
